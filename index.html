@@ -1,0 +1,77 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <ul id="ul2"></ul>
+
+
+    <script src="script/jquery-3.7.0.min.js"></script>
+    
+    <script>
+
+        $(document).ready(function(){
+
+            let ul=document.getElementById("ul2");
+
+            $.ajax({
+
+                url: "info.php",
+                type: "GET",
+                dataType: "json",
+                data:{},
+                success: function(response){
+
+                    //console.log(  response );
+                    
+                    for(i of response){
+                        
+                        li=document.createElement("li");
+                        figure=document.createElement("figure");
+                        img=document.createElement("img");
+                        figcaption=document.createElement("figcaption");
+                        modelo=document.createElement("p");
+                        precio=document.createElement("p");
+
+                        
+                        figcaption.appendChild(modelo);
+                        figcaption.appendChild(precio);
+
+                        figure.appendChild(img);
+                        figure.appendChild(figcaption);
+
+
+                        li.appendChild(figure);
+                        
+                        ul.appendChild(li);
+                        
+                        img.setAttribute("src",  i['imagen'] );
+                        modelo.textContent= "modelo: "+i["modelo"];
+                        precio.textContent="precio: "+i["precio"];
+
+                    }
+
+
+
+                },
+                error: function (xhr, status, error) {
+                    alert(error)
+                }
+
+            })
+        })
+
+
+    </script>
+
+    
+</body>
+</html>
